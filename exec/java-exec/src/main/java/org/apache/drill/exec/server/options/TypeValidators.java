@@ -213,6 +213,13 @@ public class TypeValidators {
       }
     }
 
+    public EnumeratedStringValidator(String name, String def, Class<? extends Enum> values) {
+      super(name, def);
+      for (Object value : ((Class)values).getEnumConstants()) {
+        valuesSet.add(value.toString().toLowerCase());
+      }
+    }
+
     @Override
     public void validate(final OptionValue v, final OptionManager manager) {
       super.validate(v, manager);

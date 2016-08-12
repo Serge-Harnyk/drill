@@ -33,6 +33,8 @@ import org.apache.drill.exec.server.options.TypeValidators.StringValidator;
 import org.apache.drill.exec.testing.ExecutionControls;
 import org.apache.drill.exec.util.ImpersonationUtil;
 
+import org.apache.drill.common.expression.fn.ToDateTypeFunctions.ToDateFormats;
+
 public interface ExecConstants {
   String ZK_RETRY_TIMES = "drill.exec.zk.retry.count";
   String ZK_RETRY_DELAY = "drill.exec.zk.retry.delay";
@@ -329,6 +331,10 @@ public interface ExecConstants {
 
   String CODE_GEN_EXP_IN_METHOD_SIZE = "exec.java.compiler.exp_in_method_size";
   LongValidator CODE_GEN_EXP_IN_METHOD_SIZE_VALIDATOR = new LongValidator(CODE_GEN_EXP_IN_METHOD_SIZE, 50);
+
+  String TO_DATE_FORMAT_KEY = "drill.exec.fn.to_date_format";
+  StringValidator TO_DATE_FORMAT = new EnumeratedStringValidator(
+      TO_DATE_FORMAT_KEY, "JODA", ToDateFormats.class);
 
   /**
    * Timeout for create prepare statement request. If the request exceeds this timeout, then request is timed out.

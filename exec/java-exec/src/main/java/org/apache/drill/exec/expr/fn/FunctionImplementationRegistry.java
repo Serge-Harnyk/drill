@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.drill.common.config.DrillConfig;
 import org.apache.drill.common.expression.FunctionCall;
 import org.apache.drill.common.expression.fn.CastFunctions;
+import org.apache.drill.common.expression.fn.ToDateTypeFunctions;
 import org.apache.drill.common.scanner.ClassPathScanner;
 import org.apache.drill.common.scanner.persistence.ScanResult;
 import org.apache.drill.common.types.TypeProtos.DataMode;
@@ -130,6 +131,9 @@ public class FunctionImplementationRegistry implements FunctionLookupContext {
               && optionManager.getOption(ExecConstants.CAST_TO_NULLABLE_NUMERIC).bool_val
               && CastFunctions.isReplacementNeeded(funcName, minorType)) {
               funcName = CastFunctions.getReplacingCastFunction(funcName, dataMode, minorType);
+          } else if (optionManager != null
+              && ToDateTypeFunctions.isReplacementNeeded(funcName, optionManager.getOption(ExecConstants.TO_DATE_FORMAT_KEY).string_val)) {
+              funcName = ToDateTypeFunctions.getReplacingToDateTypeFunction(funcName);
           }
       }
 
